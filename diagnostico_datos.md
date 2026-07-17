@@ -1,17 +1,17 @@
 DIAGNOSTICO DEL CONJUNTO DE DATOS
 ESTABLECIMIENTOS EDUCATIVOS HASTA NIVEL DIVERSIFICADO - 22 DEPARTAMENTOS DE GUATEMALA
-
-
 NOTA PREVIA: SON DOS GRUPOS CON ESTRUCTURA DISTINTA
 
 - GRUPO A: 11 archivos originales, 18 columnas, UTF-8 CON BOM.
   Archivos: <departamento> + diversificado.csv
   Departamentos: peten, quetzaltenango, quiche, retalhuleu, sacatepequez,
-  sanmarcos, santarosa, solola, suchitepequez, totonicapan, zacapa
+  sanmarcos, santarosa, solola, suchitepequez, totonicapan, zacapa.
+
 - GRUPO B: 11 archivos, 16 columnas, UTF-8 SIN BOM.
   Archivos: <departamento> + _diversificado_limpio.csv
   Departamentos: alta_verapaz, baja_verapaz, chimaltenango, chiquimula,
-  el_progreso, escuintla, guatemala, huehuetenango, izabal, jalapa, jutiapa
+  el_progreso, escuintla, guatemala, huehuetenango, izabal, jalapa, jutiapa.
+
 - Dentro de cada grupo la estructura es identica. Entre grupos no.
 - Por eso cada inciso se responde por separado para A y para B.
 
@@ -362,45 +362,64 @@ Ordenados de mas grave a menos grave. La accion sugerida va al lado.
 
 - P1. Columnas corridas en el grupo B, 817 registros. STATUS, MODALIDAD,
   JORNADA y PLAN quedaron dentro del texto de DEPARTAMENTAL. Causa raiz de
-  1565 faltantes. Accion: parsear DEPARTAMENTAL de atras hacia adelante; el
+  1565 faltantes.
+  Accion: parsear DEPARTAMENTAL de atras hacia adelante; el
   final de la cadena siempre es una de las 14 jurisdicciones validas y lo
   que sobra por delante son los valores de las otras 4 columnas.
+
 - P2. Los dos grupos no son concatenables: 18 columnas contra 16, columna
   sin nombre solo en A, SUPERVISOR y DIRECTOR separados en A pero fusionados
-  en B, BOM solo en A. Accion: borrar la columna vacia de A, decidir el
-  criterio de SUPERVISOR/DIRECTOR, leer todo con utf-8-sig.
+  en B, BOM solo en A.
+  Accion: borrar la columna vacia de A, decidir el criterio de SUPERVISOR/DIRECTOR, leer todo con utf-8-sig.
+
 - P3. SUPERVISOR_DIRECTOR fusiona dos personas sin separador, 5224 registros
-  del grupo B. No tiene arreglo automatico confiable. Accion: conseguir los
+  del grupo B. No tiene arreglo automatico confiable.
+  Accion: conseguir los
   archivos crudos de esos 11 departamentos, o fusionar tambien en A y
   aceptar la perdida.
+
 - P4. Columna sin nombre en el grupo A: 100% vacia, 4033 celdas, 0 datos.
   Accion: borrarla.
+
 - P5. Telefonos con dos numeros en una celda y numeros incompletos, 143 en
-  total (43 en A, 100 en B). Accion: separar en TELEFONO_1 y TELEFONO_2 con
-  los 3 separadores, marcar como invalido lo que no llegue a 8 digitos.
+  total (43 en A, 100 en B).
+  Accion: separar en TELEFONO_1 y TELEFONO_2 con los 3 separadores, marcar como invalido lo que no llegue a 8 digitos.
+
 - P6. DISTRITO con dos formatos mezclados en los dos grupos, mas 2 valores
-  truncados en A. Accion: estandarizar a un solo formato, corregir o anular
-  los truncados.
+  truncados en A.
+  Accion: estandarizar a un solo formato, corregir o anular los truncados.
+
 - P7. Contaminacion entre ESTABLECIMIENTO y DIRECCION en el grupo B.
   Ejemplo, CODIGO 16-01-0137-46:
   ESTABLECIMIENTO = "INSTITUTO MIXTO NOCTURNO FRANCISCO MARROQUIN 6A."
   DIRECCION = "AVENIDA 1-15 ZONA 4 JORGE EDUARDO PAQUE LAZARO"
   El "6A." va con la direccion y el nombre de persona no deberia estar ahi.
   Accion: revisar caso por caso, no hay patron automatico.
+
 - P8. Faltantes reales altos en A: DIRECTOR 11.78%, TELEFONO 7.31%,
-  SUPERVISOR 2.93%, DISTRITO 2.85%. Accion: verificar contra la fuente.
+  SUPERVISOR 2.93%, DISTRITO 2.85%.
+  Accion: verificar contra la fuente.
+
 - P9. Faltantes reales altos en B, ya descontado P1: DIRECCION 10.58%,
-  SUPERVISOR_DIRECTOR 7.91%, TELEFONO 6.95%, DISTRITO 3.51%. Accion:
-  verificar contra la fuente. huehuetenango concentra 242 de las 600
-  direcciones vacias.
+  SUPERVISOR_DIRECTOR 7.91%, TELEFONO 6.95%, DISTRITO 3.51%.
+  Accion: verificar contra la fuente. huehuetenango concentra 242 de las 600 direcciones vacias.
+
 - P10. Acentuacion inconsistente entre DEPARTAMENTO y DEPARTAMENTAL, y entre
-  el grupo A y el grupo B. Accion: definir un criterio unico y aplicarlo.
-- P11. Placeholder "----" en DIRECTOR del grupo A, 3 registros. Accion:
-  convertir a nulo real antes de contar faltantes.
-- P12. NIVEL constante en los 22 archivos. Accion: eliminar o documentar.
+  el grupo A y el grupo B.
+  Accion: definir un criterio unico y aplicarlo.
+
+- P11. Placeholder "----" en DIRECTOR del grupo A, 3 registros.
+Accion: convertir a nulo real antes de contar faltantes.
+
+- P12. NIVEL constante en los 22 archivos.
+Accion: eliminar o documentar.
+
 - P13. PLAN del grupo A con dominio fragmentado, 4 variantes de
-  SEMIPRESENCIAL. Accion: agrupar categorias.
-- P14. Espacios dobles internos en el grupo B, 14 casos. Accion: normalizar.
+  SEMIPRESENCIAL.
+  Accion: agrupar categorias.
+
+- P14. Espacios dobles internos en el grupo B, 14 casos.
+Accion: normalizar.
 
 Lo que esta bien y no hay que tocar:
 - 0 registros duplicados exactos en los 22 archivos.
