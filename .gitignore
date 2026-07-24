@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.Rhistory
+.DS_Store
+
+# Archivo de prueba generado por diagnostico.py (no es entregable)
+Data/consolidado_grupoB.csv
