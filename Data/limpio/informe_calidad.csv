@@ -1,0 +1,11 @@
+﻿Métrica,Antes,Después
+Registros,9706,9706
+Variables,19,22
+Valores faltantes,29446 (15.97%),12686 (6.54%)
+Variables con NA,13,9
+Duplicados exactos,0,0
+Posibles duplicados,—,"1724 filas (1030 pares), conservadas y marcadas"
+Variables con formato inconsistente,—,"0 (corregidas: DISTRITO, TELEFONO, tildes)"
+Variables con tipo incorrecto,—,0 (categóricas y numéricas tipadas)
+Categorías inconsistentes,—,0 (unificadas por tildes/mayúsculas)
+Errores corregidos,—,4075
