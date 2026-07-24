@@ -4,5 +4,9 @@ __pycache__/
 .Rhistory
 .DS_Store
 
+# Ignorar entornos virtuales si usas uno 
+venv/ 
+env/ 
+
 # Archivo de prueba generado por diagnostico.py (no es entregable)
 Data/consolidado_grupoB.csv
