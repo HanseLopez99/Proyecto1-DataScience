@@ -3,7 +3,12 @@ import glob, os, re
 
 pd.set_option("display.width", 140)
 
-files = sorted(glob.glob('/mnt/user-data/outputs/*_limpio.csv'))
+# Rutas relativas a la raiz del repositorio (este archivo esta en code/).
+# Ancladas a la ubicacion del script para que corra desde cualquier carpeta.
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(BASE, "Data")
+
+files = sorted(glob.glob(os.path.join(DATA, "*_limpio.csv")))
 dfs = []
 resumen_base = []
 for f in files:
@@ -142,5 +147,6 @@ resumen = full.groupby('__BASE__').apply(
 )
 print(resumen.to_string())
 
-full.to_csv('/home/claude/analisis/consolidado.csv', index=False)
-print("\nConsolidado guardado.")
+salida = os.path.join(DATA, "consolidado_grupoB.csv")
+full.to_csv(salida, index=False, encoding="utf-8-sig")
+print("\nConsolidado guardado en:", os.path.relpath(salida, BASE))
